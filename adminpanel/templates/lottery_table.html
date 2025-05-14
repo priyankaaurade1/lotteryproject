@@ -1,0 +1,15 @@
+<section style="margin-top: 40px;">
+  <h2 style="text-align: center; font-size: 30px; font-weight: bold;">current Results</h2>
+  <table cellspacing="0" rules="all" border="1" style="border-collapse: collapse; width: 100%; margin: 0 auto;">
+    {% for row in numbers_grid %}
+      <tr>
+        {% for number in row %}
+          <td style="font-size:35px;font-weight:bold;width:8%; padding-top: 1%;padding-bottom: 1%;
+          background-color: {% cycle '#FFD700' '#DDA0DD' '#90EE90' '#FFB6C1' '#CD5C5C' '#F5DEB3' '#ADD8E6' '#FFC0CB' '#87CEEB' '#FFA07A' %};">
+            {{ number }}
+          </td>
+        {% endfor %}
+      </tr>
+    {% endfor %}
+  </table>
+</section>

@@ -1,0 +1,244 @@
+{% load static %}
+{% load custom_filters %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mainslott Replica</title>
+  <!-- <link rel="stylesheet" href="{% static 'style.css' %}"> -->
+   <style>
+      
+  html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    background-color: #f2f2f2;
+    text-align: center;
+  }
+    .wrapper {
+        flex: 1;
+    }
+  
+  footer {
+    background-color: #f2f2f2;
+    text-align: center;
+    padding: 1em;
+  }
+
+  .header-container {
+    width: 100%;
+    background-color: #FFA7DC;
+    background-image: linear-gradient(to bottom right, #c494d8);
+    font-family: "Times New Roman", serif;
+    padding: 10px 4%;
+    box-sizing: border-box;
+    font-size: 32px;
+    text-align: center;
+  }
+  
+  .headgrid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .headgrid .title h1 {
+    font-size: 50px;
+    margin: 0;
+  }
+  
+  .headgrid .time,
+  .headgrid .next-draw {
+    font-size: 24px;
+  }
+  
+  .time-selection form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+  
+  .time-selection label,
+  .time-selection input,
+  .time-selection select,
+  .time-selection button {
+    font-size: 16px;
+  }
+  
+  @media (max-width: 768px) {
+    .headgrid {
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    .time-selection form {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    .headgrid .title h1 {
+      font-size: 36px;
+    }
+  
+    .headgrid .time,
+    .headgrid .next-draw {
+      font-size: 20px;
+    }
+  }
+  
+.head {
+    font-size: 32px;
+    text-align: center;
+    margin: 0px auto;
+    background-color: #FFA7DC;
+    background-image: linear-gradient(to bottom right, #c494d8);
+    padding-left: 4%;
+    padding-right: 4%;
+    padding-bottom: 20px;
+    font-family: "Times new Roman" !important;
+}
+.lottery-table td {
+    padding: 10px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 18px;
+}
+
+.col0 { background-color: #FFEB3B; }   
+.col1 { background-color: #ecd4d8; }   
+.col2 { background-color: #85d825; }  
+.col3 { background-color: #ea8d9e; }  
+.col4 { background-color: #e3a0ef; }   
+.col5 { background-color: #d47c8c; }   
+.col6 { background-color: #ecd4d8; }   
+.col7 { background-color: #FFEB3B; }   
+.col8 { background-color: #5bbfec; }   
+.col9 { background-color: #ffa7dc; }   
+
+td{
+    text-align: -webkit-center;
+    vertical-align: middle;
+}
+   </style>
+</head>
+<body>
+<div class="wrapper">
+    <marquee behavior="" direction="" style="font-size: larger;">
+        Note :- All the information here is based on Numeric astrology is not related to any type of gambling. Viewing this website is on your own risk. We are not responsible for any issue or scam. We respect all country rules and laws. If you not agree with our site, please quit our site right now..!!
+    </marquee>
+    <div class="header-container">
+        <div class="headgrid">
+          <div class="time"><strong>Time:</strong> <span id="currentTime">--:--:--</span></div>
+          <div class="title"><h1>MainsLott</h1></div>
+          <div class="next-draw"><strong>Next Draw:</strong> <span id="nextDraw">--:--</span></div>
+        </div>
+      
+        <section class="time-selection">
+          <form method="post">
+            {% csrf_token %}
+            <label><strong>Select Date:</strong></label>
+            <input type="date" name="date" value="{{ selected_date }}">
+            
+            <label><strong>Select Time:</strong></label>
+            <select name="time">
+              <option value="">-- All Times --</option>
+              {% for slot in time_slots %}
+              <option value="{{ slot }}" {% if selected_time == slot %}selected{% endif %}>{{ slot }}</option>
+              {% endfor %}
+            </select>
+      
+            <button type="submit">Submit</button>
+            <button type="button" onclick="location.reload();">Refresh</button>
+          </form>
+        </section>
+      </div>
+      <div class="row" style="padding-left:4%; padding-right:4%; padding-top: 1px;">
+            <div class="col-md-12">
+                <div class="col-md-4" style="float:left; width:33.33%;">
+                    <span style="font-size:38px; font-weight:bold;width:33%">MainsLott</span>
+                </div>
+                <div class="col-md-4" style="width:33.33%; display:inline; text-align:right; margin-left:12%;">
+                    <span  class="time" style="text-align:center; font-size:38px; font-weight:bold;width:33%; ">
+                        02:45pm                    </span>
+                </div>
+                <div class="col-md-4" style="float:right; width:33.33%; text-align:right;">
+                    <span style="  font-size:38px; width:33%; font-weight:bold; ">14-05-2025</span>
+                </div>
+            </div>
+        </div>
+        </form>
+    <table cellspacing="0" rules="all" border="1" id="GridView1" style="border-collapse:collapse;width:100%; margin:0 auto;">
+        {% for row in grid %}
+        <tr>
+            {% for cell in row %}
+            <td align="center" valign="middle" style="
+    font-size:35px;
+    font-weight:bold;
+    width:8%;
+    {% cycle 'background-color:#FFEB3B;' 'background-color:#ecd4d8;' 'background-color:#85d825;' 'background-color:#ea8d9e;' 'background-color:#e3a0ef;' 'background-color:#d47c8c;' 'background-color:#5bbfec;' 'background-color:#ffa7dc;' %}
+    padding-top: 1%;
+    padding-bottom: 1%;">
+    {{ cell }}
+</td>
+
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+  <footer>
+    <p>&copy; 2025 Mainslott.in</p>
+  </footer>
+</div>
+  <script>
+    function updateTimes() {
+        const now = new Date();
+    
+        // Use Asia/Kolkata time in 12-hour format
+        const istFormatter = new Intl.DateTimeFormat('en-IN', {
+            timeZone: 'Asia/Kolkata',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: true
+        });
+    
+        const formattedIST = istFormatter.format(now);
+        document.getElementById("currentTime").textContent = formattedIST;
+    
+        // Get IST time as Date object again for draw logic
+        const parts = istFormatter.formatToParts(now);
+        let hour, minute, second;
+        for (const part of parts) {
+            if (part.type === 'hour') hour = parseInt(part.value);
+            if (part.type === 'minute') minute = parseInt(part.value);
+            if (part.type === 'second') second = parseInt(part.value);
+            if (part.type === 'dayPeriod' && part.value === 'PM' && hour !== 12) hour += 12;
+            if (part.type === 'dayPeriod' && part.value === 'AM' && hour === 12) hour = 0;
+        }
+    
+        // Calculate next draw countdown
+        const minsToNextDraw = 15 - (minute % 15) - (second === 0 ? 0 : 1);
+        const secsToNextDraw = (60 - second) % 60;
+    
+        const mm = String(minsToNextDraw).padStart(2, '0');
+        const ss = String(secsToNextDraw).padStart(2, '0');
+        document.getElementById("nextDraw").textContent = `${mm}:${ss}`;
+    }
+    
+    setInterval(updateTimes, 1000);
+    updateTimes();
+    </script>
+         
+</body>
+</html>

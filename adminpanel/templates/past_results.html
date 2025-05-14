@@ -1,0 +1,34 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<h2 style="text-align:center;font-size:28px;font-weight:bold;">All Results</h2>
+
+<form method="get" style="text-align:center; margin-bottom: 20px;">
+    <label for="date">Select Date:</label>
+    <input type="date" id="date" name="date" value="{{ date }}">
+    
+    <label for="time_slot">Select Time Slot:</label>
+    <select name="time_slot" id="time_slot">
+        {% for slot in all_slots %}
+            <option value="{{ slot }}" {% if slot == time_slot %}selected{% endif %}>{{ slot }}</option>
+        {% endfor %}
+    </select>
+    
+    <button type="submit">Filter</button>
+</form>
+
+<section style="margin-top: 40px;">
+    <table cellspacing="0" rules="all" border="1" style="border-collapse: collapse; width: 100%; margin: 0 auto;">
+        {% for row in numbers_grid %}
+        <tr>
+            {% for cell in row %}
+            <td style="font-size:35px;font-weight:bold;width:8%;padding-top:1%;padding-bottom:1%;
+                {% if cell %}background-color: {{ cell.color }};{% else %}background-color: #f0f0f0;{% endif %}">
+                {% if cell %}{{ cell.number }}{% endif %}
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+</section>
+{% endblock %}
