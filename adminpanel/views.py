@@ -24,7 +24,6 @@ def past_results(request):
 
     records = LotteryResult.objects.filter(date=selected_date, time_slot=selected_slot).order_by('row', 'column')
 
-    # Create grid for table
     grid = [[None for _ in range(10)] for _ in range(10)]
     for result in records:
         full_number = f"{result.first_two_digits}{result.last_two_digits}"
@@ -32,7 +31,6 @@ def past_results(request):
             'number': full_number,
             'color': result.color
         }
-
     context = {
         'numbers_grid': grid,
         'date': selected_date,

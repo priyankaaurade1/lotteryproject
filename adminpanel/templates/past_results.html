@@ -1,21 +1,49 @@
 {% extends "admin/base_site.html" %}
 
 {% block content %}
-<h2 style="text-align:center;font-size:28px;font-weight:bold;">All Results</h2>
+<div class="content">
+    <div class="container-fluid">
+        <section id="content" class="content">
 
-<form method="get" style="text-align:center; margin-bottom: 20px;">
-    <label for="date">Select Date:</label>
-    <input type="date" id="date" name="date" value="{{ date }}">
-    
-    <label for="time_slot">Select Time Slot:</label>
-    <select name="time_slot" id="time_slot">
-        {% for slot in all_slots %}
-            <option value="{{ slot }}" {% if slot == time_slot %}selected{% endif %}>{{ slot }}</option>
-        {% endfor %}
-    </select>
-    
-    <button type="submit">Filter</button>
-</form>
+            <!-- Headline -->
+            <div class="row mb-4">
+                <div class="col text-center">
+                    <h2 style="font-size: 32px; font-weight: bold;">All Results</h2>
+                </div>
+            </div>
+
+            <!-- Filter Form -->
+            <div class="row justify-content-center">
+                <div class="col-md-12">
+                    <form method="get" style="display: flex;flex-wrap: nowrap;gap: 15px;justify-content: center;align-items: center;">
+                        <!-- Date -->
+                        <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                            <label for="date" style="font-weight: bold;">Select Date:</label>
+                            <input type="date" id="date" name="date" value="{{ date }}">
+                        </div>
+
+                        <!-- Time Slot -->
+                        <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                            <label for="time_slot" style="font-weight: bold;">Select Time Slot:</label>
+                            <select name="time_slot" id="time_slot">
+                                {% for slot in all_slots %}
+                                    <option value="{{ slot }}" {% if slot == time_slot %}selected{% endif %}>{{ slot }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div style="display: flex; flex-direction: column; justify-content: flex-end;">
+                            <label style="visibility: hidden;">Filter</label> 
+                            <button type="submit">Filter</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </section>
+    </div>
+</div>
 
 <section style="margin-top: 40px;">
     <table cellspacing="0" rules="all" border="1" style="border-collapse: collapse; width: 100%; margin: 0 auto;">

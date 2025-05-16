@@ -46,3 +46,14 @@ def generate_lottery_results(request):
             results.append(lottery_result)
 
     return render(request, 'index.html', {'results': results})
+
+from django.http import JsonResponse
+from django.core.management import call_command
+
+def trigger_lottery(request, token):
+    if token != 'your-secret-token':
+        return JsonResponse({'error': 'unauthorized'}, status=403)
+
+    call_command('generate_lottery')
+    return JsonResponse({'message': 'Lottery generated'})
+
