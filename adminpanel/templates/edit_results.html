@@ -1,0 +1,22 @@
+{% extends 'admin/base_site.html' %}
+{% load static %}
+
+{% block content %}
+<h2>Edit Lottery Results for {{ date }} {{ time_slot }}</h2>
+<form method="post">
+  {% csrf_token %}
+  <table class="table table-bordered text-center">
+    {% for row in grid %}
+      <tr>
+        {% for cell in row %}
+          <td style="background-color: {{ cell.color }};">
+            {{ cell.first_two_digits }}
+            <input type="text" name="last_two_{{ cell.row }}_{{ cell.column }}" value="{{ cell.last_two_digits }}" maxlength="2" style="width: 40px; text-align: center;">
+          </td>
+        {% endfor %}
+      </tr>
+    {% endfor %}
+  </table>
+  <button class="btn btn-primary" type="submit">Save Changes</button>
+</form>
+{% endblock %}

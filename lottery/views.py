@@ -5,20 +5,44 @@ import random
 from .utils import generate_lottery_grid
 
 def show_lottery_table(request):
+    today = datetime.now().date()
+    formatted_date = today.strftime("%d-%m-%Y")
+    time_slots = [
+        "09:00 AM", "09:15 AM", "09:30 AM", "09:45 AM", "10:00 AM", "10:15 AM", "10:30 AM", "10:45 AM",
+        "11:00 AM", "11:15 AM", "11:30 AM", "11:45 AM", "12:00 PM", "12:15 PM", "12:30 PM", "12:45 PM",
+        "01:00 PM", "01:15 PM", "01:30 PM", "01:45 PM", "02:00 PM", "02:15 PM", "02:30 PM", "02:45 PM",
+        "03:00 PM", "03:15 PM", "03:30 PM", "03:45 PM", "04:00 PM", "04:15 PM", "04:30 PM", "04:45 PM",
+        "05:00 PM", "05:15 PM", "05:30 PM", "05:45 PM", "06:00 PM", "06:15 PM", "06:30 PM", "06:45 PM",
+        "07:00 PM", "07:15 PM", "07:30 PM", "07:45 PM", "08:00 PM", "08:15 PM", "08:30 PM", "08:45 PM",
+        "09:00 PM", "09:15 PM", "09:30 PM"
+    ]
     grid = generate_lottery_grid()
-    return render(request, 'index.html', {'grid': grid})
+    slot_label = get_last_time_slot()
+    return render(request, 'index.html', {
+        'grid': grid,
+        'selected_date': today.strftime("%Y-%m-%d"),
+        'time_slots': time_slots,
+        'current_slot_label': slot_label,
+        'formatted_date':formatted_date
+    })
+
+def get_last_time_slot():
+    now = datetime.now()
+    minute = (now.minute // 15) * 15
+    last_slot = now.replace(minute=minute, second=0, microsecond=0)
+    return last_slot.strftime("%I:%M %p").lstrip("0")  
 
 def generate_lottery_results(request):
     today = datetime.now().date()
 
     time_slots = [
-        "09:00", "09:15", "09:30", "09:45", "10:00", "10:15", "10:30", "10:45",
-        "11:00", "11:15", "11:30", "11:45", "12:00", "12:15", "12:30", "12:45",
-        "13:00", "13:15", "13:30", "13:45", "14:00", "14:15", "14:30", "14:45",
-        "15:00", "15:15", "15:30", "15:45", "16:00", "16:15", "16:30", "16:45",
-        "17:00", "17:15", "17:30", "17:45", "18:00", "18:15", "18:30", "18:45",
-        "19:00", "19:15", "19:30", "19:45", "20:00", "20:15", "20:30", "20:45",
-        "21:00", "21:15", "21:30"
+        "09:00 AM", "09:15 AM", "09:30 AM", "09:45 AM", "10:00 AM", "10:15 AM", "10:30 AM", "10:45 AM",
+        "11:00 AM", "11:15 AM", "11:30 AM", "11:45 AM", "12:00 PM", "12:15 PM", "12:30 PM", "12:45 PM",
+        "01:00 PM", "01:15 PM", "01:30 PM", "01:45 PM", "02:00 PM", "02:15 PM", "02:30 PM", "02:45 PM",
+        "03:00 PM", "03:15 PM", "03:30 PM", "03:45 PM", "04:00 PM", "04:15 PM", "04:30 PM", "04:45 PM",
+        "05:00 PM", "05:15 PM", "05:30 PM", "05:45 PM", "06:00 PM", "06:15 PM", "06:30 PM", "06:45 PM",
+        "07:00 PM", "07:15 PM", "07:30 PM", "07:45 PM", "08:00 PM", "08:15 PM", "08:30 PM", "08:45 PM",
+        "09:00 PM", "09:15 PM", "09:30 PM"
     ]
 
     results = []
