@@ -1,0 +1,15 @@
+*.pyc
+__pycache__/
+db.sqlite3
+*.log
+
+# Environment
+.env
+*.env
+
+# VSCode/IDE configs
+.vscode/
+.idea/
+
+# MacOS and system
+.DS_Store
