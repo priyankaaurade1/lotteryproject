@@ -83,7 +83,7 @@
     align-items: center;
     flex-wrap: wrap;
     text-align: center;
-    margin-bottom: 40px;
+    /* margin-bottom: 40px; */
   }
   
   .headgrid .title h1 {
@@ -102,7 +102,7 @@
     gap: 30px;
     align-items: center;
     justify-content: center;
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
   }
   
   .time-selection label,
@@ -163,27 +163,27 @@ td{
     </marquee>
     <div class="header-container">
         <div class="headgrid">
-          <div class="time">Time:<span id="currentTime" >--:--:--</span></div>
-          <div class="title"><strong><h1>MainsLott</h1></strong></div>
-          <div class="next-draw">Next Draw:<span id="nextDraw">--:--</span></div>
+          <div class="time" style="font-size: 32px;">Time: <span id="currentTime" >--:--:--</span></div>
+          <div class="title"><strong style="font-size: 50px;font-weight: bolder;">MainsLott</strong></div>
+          <div class="next-draw" style="font-size: 32px;">Next Draw : <span id="nextDraw">--:--</span></div>
         </div>
       
         <section class="time-selection">
           <form method="post">
             {% csrf_token %}
-            <label><strong>Select Date:</strong></label>
-            <input type="date" name="date" value="{{ selected_date }}">
-            
-            <label><strong>Select Time:</strong></label>
-            <select name="time">
+            <label><strong style="font-size: 32px;float: left;">Select Date : </strong></label>
+            <input type="date" name="date" value="{{ selected_date }}" style="padding-left: 10px;font-weight: bold;font-size: 20px;">
+            <button type="submit" style="background-image: linear-gradient(to bottom right, #c494d8, #ff9900);border-color: #f7d8d800 !important;width: 150px;">Submit</button>
+            <button type="button" style="background-image: linear-gradient(to bottom right, #c494d8, #ff9900);border-color: #f7d8d800 !important;width: 150px;" onclick="location.reload();">Refresh</button>
+            <label><strong style="font-size: 32px;float: right;">Select Time:</strong></label>
+            <select name="time" style="padding-left: 10px;font-weight: bold;font-size: 20px;">
               <option value="">-- All Times --</option>
               {% for slot in time_slots %}
               <option value="{{ slot }}" {% if selected_time == slot %}selected{% endif %}>{{ slot }}</option>
               {% endfor %}
             </select>
       
-            <button type="submit">Submit</button>
-            <button type="button" onclick="location.reload();">Refresh</button>
+            
           </form>
         </section>
       </div>
@@ -204,25 +204,35 @@ td{
               <tr>
                   {% for cell in row %}
                   {% if forloop.counter0 == 0 %}
-                      <td style="background-color:#FFEB3B; font-size:35px; font-weight:bold; width:8%; padding-top: 1%;padding-bottom: 1%;" align="center" valign="middle">{{ cell }}</td>
+                      <td style="background-color:#FFEB3B; font-size:25px; font-weight:bold; width:8%; padding-top: 1%;padding-bottom: 1%;" align="center" valign="middle">{{ cell|default:"--" }}
+</td>
                   {% elif forloop.counter0 == 1 %}
-                      <td style="background-color:#ecd4d8; font-size:35px; font-weight:bold; width:8%; padding-top: 1%;padding-bottom: 1%;" align="center" valign="middle">{{ cell }}</td>
+                      <td style="background-color:#ecd4d8; font-size:25px; font-weight:bold; width:8%; padding-top: 1%;padding-bottom: 1%;" align="center" valign="middle">{{ cell|default:"--" }}
+</td>
                   {% elif forloop.counter0 == 2 %}
-                      <td style="background-color:#85d825; font-size:35px; font-weight:bold; width:8%; padding-top: 1%;padding-bottom: 1%;" align="center" valign="middle">{{ cell }}</td>
+                      <td style="background-color:#85d825; font-size:25px; font-weight:bold; width:8%; padding-top: 1%;padding-bottom: 1%;" align="center" valign="middle">{{ cell|default:"--" }}
+</td>
                   {% elif forloop.counter0 == 3 %}
-                      <td style="background-color:#ea8d9e; font-size:35px; font-weight:bold; width:8%; padding-top: 1%;padding-bottom: 1%;" align="center" valign="middle">{{ cell }}</td>
+                      <td style="background-color:#ea8d9e; font-size:25px; font-weight:bold; width:8%; padding-top: 1%;padding-bottom: 1%;" align="center" valign="middle">{{ cell|default:"--" }}
+</td>
                   {% elif forloop.counter0 == 4 %}
-                      <td style="background-color:#e3a0ef; font-size:35px; font-weight:bold; width:8%; padding-top: 1%;padding-bottom: 1%;" align="center" valign="middle">{{ cell }}</td>
+                      <td style="background-color:#e3a0ef; font-size:25px; font-weight:bold; width:8%; padding-top: 1%;padding-bottom: 1%;" align="center" valign="middle">{{ cell|default:"--" }}
+</td>
                   {% elif forloop.counter0 == 5 %}
-                      <td style="background-color:#d47c8c; font-size:35px; font-weight:bold; width:8%; padding-top: 1%;padding-bottom: 1%;" align="center" valign="middle">{{ cell }}</td>
+                      <td style="background-color:#d47c8c; font-size:25px; font-weight:bold; width:8%; padding-top: 1%;padding-bottom: 1%;" align="center" valign="middle">{{ cell|default:"--" }}
+</td>
                   {% elif forloop.counter0 == 6 %}
-                      <td style="background-color:#ecd4d8; font-size:35px; font-weight:bold; width:8%; padding-top: 1%;padding-bottom: 1%;" align="center" valign="middle">{{ cell }}</td>
+                      <td style="background-color:#ecd4d8; font-size:25px; font-weight:bold; width:8%; padding-top: 1%;padding-bottom: 1%;" align="center" valign="middle">{{ cell|default:"--" }}
+</td>
                   {% elif forloop.counter0 == 7 %}
-                      <td style="background-color:#FFEB3B; font-size:35px; font-weight:bold; width:8%; padding-top: 1%;padding-bottom: 1%;" align="center" valign="middle">{{ cell }}</td>
+                      <td style="background-color:#FFEB3B; font-size:25px; font-weight:bold; width:8%; padding-top: 1%;padding-bottom: 1%;" align="center" valign="middle">{{ cell|default:"--" }}
+</td>
                   {% elif forloop.counter0 == 8 %}
-                      <td style="background-color:#5bbfec; font-size:35px; font-weight:bold; width:8%; padding-top: 1%;padding-bottom: 1%;" align="center" valign="middle">{{ cell }}</td>
+                      <td style="background-color:#5bbfec; font-size:25px; font-weight:bold; width:8%; padding-top: 1%;padding-bottom: 1%;" align="center" valign="middle">{{ cell|default:"--" }}
+</td>
                   {% elif forloop.counter0 == 9 %}
-                      <td style="background-color:#ffa7dc; font-size:35px; font-weight:bold; width:8%; padding-top: 1%;padding-bottom: 1%;" align="center" valign="middle">{{ cell }}</td>
+                      <td style="background-color:#ffa7dc; font-size:25px; font-weight:bold; width:8%; padding-top: 1%;padding-bottom: 1%;" align="center" valign="middle">{{ cell|default:"--" }}
+</td>
                   {% endif %}
                   {% endfor %}
               </tr>
@@ -233,45 +243,35 @@ td{
     <p>&copy; 2025 Mainslott.in</p>
   </footer>
 </div>
-  <script>
-    function updateTimes() {
-        const now = new Date();
-    
-        // Use Asia/Kolkata time in 12-hour format
-        const istFormatter = new Intl.DateTimeFormat('en-IN', {
-            timeZone: 'Asia/Kolkata',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-            hour12: true
-        });
-    
-        const formattedIST = istFormatter.format(now);
-        document.getElementById("currentTime").textContent = formattedIST;
-    
-        // Get IST time as Date object again for draw logic
-        const parts = istFormatter.formatToParts(now);
-        let hour, minute, second;
-        for (const part of parts) {
-            if (part.type === 'hour') hour = parseInt(part.value);
-            if (part.type === 'minute') minute = parseInt(part.value);
-            if (part.type === 'second') second = parseInt(part.value);
-            // if (part.type === 'dayPeriod' && part.value === 'PM' && hour !== 12) hour += 12;
-            // if (part.type === 'dayPeriod' && part.value === 'AM' && hour === 12) hour = 0;
-        }
-    
-        // Calculate next draw countdown
-        const minsToNextDraw = 15 - (minute % 15) - (second === 0 ? 0 : 1);
-        const secsToNextDraw = (60 - second) % 60;
-    
-        const mm = String(minsToNextDraw).padStart(2, '0');
-        const ss = String(secsToNextDraw).padStart(2, '0');
-        document.getElementById("nextDraw").textContent = `${mm}:${ss}`;
-    }
-    
-    setInterval(updateTimes, 1000);
-    updateTimes();
-    </script>
+<script>
+function updateTimes() {
+    const now = new Date();
+    const kolkataTime = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
+
+    let hour = kolkataTime.getHours();           
+    const minute = kolkataTime.getMinutes();     
+    const second = kolkataTime.getSeconds();     
+
+    let hour12 = hour % 12;
+    hour12 = hour12 === 0 ? 12 : hour12;
+
+    const formattedHour = String(hour12).padStart(2, '0');
+    const formattedMinute = String(minute).padStart(2, '0');
+    const formattedSecond = String(second).padStart(2, '0');
+
+    const formattedTime = `${formattedHour}:${formattedMinute}:${formattedSecond}`;
+    document.getElementById("currentTime").textContent = formattedTime;
+
+    const minsToNextDraw = 15 - (minute % 15) - (second === 0 ? 0 : 1);
+    const secsToNextDraw = (60 - second) % 60;
+    const mm = String(minsToNextDraw).padStart(2, '0');
+    const ss = String(secsToNextDraw).padStart(2, '0');
+    document.getElementById("nextDraw").textContent = `${mm}:${ss}`;
+}
+
+setInterval(updateTimes, 1000);
+updateTimes();
+</script>
 <script>
 function updateTime() {
   const now = new Date();

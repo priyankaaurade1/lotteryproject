@@ -2,19 +2,18 @@ from django.shortcuts import render
 from adminpanel.models import LotteryResult,COLUMN_COLORS
 from datetime import datetime, timedelta
 import random
-from .utils import generate_lottery_grid
 
 def show_lottery_table(request):
     today = datetime.now().date()
     formatted_date = today.strftime("%d-%m-%Y")
     time_slots = [
-        "09:00 AM", "09:15 AM", "09:30 AM", "09:45 AM", "10:00 AM", "10:15 AM", "10:30 AM", "10:45 AM",
-        "11:00 AM", "11:15 AM", "11:30 AM", "11:45 AM", "12:00 PM", "12:15 PM", "12:30 PM", "12:45 PM",
-        "01:00 PM", "01:15 PM", "01:30 PM", "01:45 PM", "02:00 PM", "02:15 PM", "02:30 PM", "02:45 PM",
-        "03:00 PM", "03:15 PM", "03:30 PM", "03:45 PM", "04:00 PM", "04:15 PM", "04:30 PM", "04:45 PM",
-        "05:00 PM", "05:15 PM", "05:30 PM", "05:45 PM", "06:00 PM", "06:15 PM", "06:30 PM", "06:45 PM",
-        "07:00 PM", "07:15 PM", "07:30 PM", "07:45 PM", "08:00 PM", "08:15 PM", "08:30 PM", "08:45 PM",
-        "09:00 PM", "09:15 PM", "09:30 PM"
+        "09:00:00", "09:15:00", "09:30:00", "09:45:00", "10:00:00", "10:15:00", "10:30:00", "10:45:00",
+        "11:00:00", "11:15:00", "11:30:00", "11:45:00", "12:00:00", "12:15:00", "12:30:00", "12:45:00",
+        "13:00:00", "13:15:00", "13:30:00", "13:45:00", "14:00:00", "14:15:00", "14:30:00", "14:45:00",
+        "15:00:00", "15:15:00", "15:30:00", "15:45:00", "16:00:00", "16:15:00", "16:30:00", "16:45:00",
+        "17:00:00", "17:15:00", "17:30:00", "17:45:00", "18:00:00", "18:15:00", "18:30:00", "18:45:00",
+        "19:00:00", "19:15:00", "19:30:00", "19:45:00", "20:00:00", "20:15:00", "20:30:00", "20:45:00",
+        "21:00:00", "21:15:00", "21:30:00"
     ]
     grid = generate_lottery_grid()
     slot_label = get_last_time_slot()
@@ -26,30 +25,51 @@ def show_lottery_table(request):
         'formatted_date':formatted_date
     })
 
+def generate_lottery_grid():
+    today = datetime.now().date()
+    current_slot = get_last_time_slot()
+
+    grid = [[None]*10 for _ in range(10)]
+    results = LotteryResult.objects.filter(date=today, time_slot=current_slot)
+
+    for res in results:
+        grid[res.row][res.column] = res.last_two_digits 
+
+    return grid
+
+import random
+
+def generate_lottery_grid():
+    grid = []
+    for i in range(100): 
+        prefix = f"{i:02d}"  
+        suffix = f"{random.randint(0, 99):02d}"  
+        full_number = prefix + suffix  
+        grid.append(full_number)
+    return [grid[i:i+10] for i in range(0, 100, 10)]
+
 def get_last_time_slot():
     now = datetime.now()
     minute = (now.minute // 15) * 15
     last_slot = now.replace(minute=minute, second=0, microsecond=0)
-    return last_slot.strftime("%I:%M %p").lstrip("0")  
+    return last_slot.time()  
 
 def generate_lottery_results(request):
     today = datetime.now().date()
 
     time_slots = [
-        "09:00 AM", "09:15 AM", "09:30 AM", "09:45 AM", "10:00 AM", "10:15 AM", "10:30 AM", "10:45 AM",
-        "11:00 AM", "11:15 AM", "11:30 AM", "11:45 AM", "12:00 PM", "12:15 PM", "12:30 PM", "12:45 PM",
-        "01:00 PM", "01:15 PM", "01:30 PM", "01:45 PM", "02:00 PM", "02:15 PM", "02:30 PM", "02:45 PM",
-        "03:00 PM", "03:15 PM", "03:30 PM", "03:45 PM", "04:00 PM", "04:15 PM", "04:30 PM", "04:45 PM",
-        "05:00 PM", "05:15 PM", "05:30 PM", "05:45 PM", "06:00 PM", "06:15 PM", "06:30 PM", "06:45 PM",
-        "07:00 PM", "07:15 PM", "07:30 PM", "07:45 PM", "08:00 PM", "08:15 PM", "08:30 PM", "08:45 PM",
-        "09:00 PM", "09:15 PM", "09:30 PM"
+        "09:00:00", "09:15:00", "09:30:00", "09:45:00", "10:00:00", "10:15:00", "10:30:00", "10:45:00",
+        "11:00:00", "11:15:00", "11:30:00", "11:45:00", "12:00:00", "12:15:00", "12:30:00", "12:45:00",
+        "13:00:00", "13:15:00", "13:30:00", "13:45:00", "14:00:00", "14:15:00", "14:30:00", "14:45:00",
+        "15:00:00", "15:15:00", "15:30:00", "15:45:00", "16:00:00", "16:15:00", "16:30:00", "16:45:00",
+        "17:00:00", "17:15:00", "17:30:00", "17:45:00", "18:00:00", "18:15:00", "18:30:00", "18:45:00",
+        "19:00:00", "19:15:00", "19:30:00", "19:45:00", "20:00:00", "20:15:00", "20:30:00", "20:45:00",
+        "21:00:00", "21:15:00", "21:30:00"
     ]
 
     results = []
     for slot in time_slots:
-
-        hour, minute = map(int, slot.split(':'))
-        time_obj = datetime.strptime(slot, "%H:%M").time()
+        time_obj = datetime.strptime(slot, "%H:%M:%S").time()
 
         for i in range(100):
             row = i // 10
