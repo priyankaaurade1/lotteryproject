@@ -25,17 +25,17 @@ def show_lottery_table(request):
         'formatted_date':formatted_date
     })
 
-def generate_lottery_grid():
-    today = datetime.now().date()
-    current_slot = get_last_time_slot()
+# def generate_lottery_grid():
+#     today = datetime.now().date()
+#     current_slot = get_last_time_slot()
 
-    grid = [[None]*10 for _ in range(10)]
-    results = LotteryResult.objects.filter(date=today, time_slot=current_slot)
+#     grid = [[None]*10 for _ in range(10)]
+#     results = LotteryResult.objects.filter(date=today, time_slot=current_slot)
 
-    for res in results:
-        grid[res.row][res.column] = res.last_two_digits 
+#     for res in results:
+#         grid[res.row][res.column] = res.last_two_digits 
 
-    return grid
+#     return grid
 
 import random
 
@@ -52,6 +52,8 @@ def get_last_time_slot():
     now = datetime.now()
     minute = (now.minute // 15) * 15
     last_slot = now.replace(minute=minute, second=0, microsecond=0)
+    print("Fetching results for slot:", current_slot)
+    print("Results count:", results.count())
     return last_slot.time()  
 
 def generate_lottery_results(request):
