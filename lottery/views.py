@@ -52,8 +52,8 @@ def get_last_time_slot():
     now = datetime.now()
     minute = (now.minute // 15) * 15
     last_slot = now.replace(minute=minute, second=0, microsecond=0)
-    print("Fetching results for slot:", current_slot)
-    print("Results count:", results.count())
+    # print("Fetching results for slot:", current_slot)
+    # print("Results count:", results.count())
     return last_slot.time()  
 
 def generate_lottery_results(request):

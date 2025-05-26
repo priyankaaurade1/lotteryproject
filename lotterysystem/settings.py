@@ -133,6 +133,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 JAZZMIN_SETTINGS = {
     "site_title": "Mainslott Admin",
     "site_header": "Mainslott Lottery Admin",
+    "site_brand": "Mainslott Admin",
     "welcome_sign": "Welcome to Mainslott Admin Panel",
     "copyright": "Mainslott",
     # "site_logo": "images/logo.png",  
@@ -142,6 +143,23 @@ JAZZMIN_SETTINGS = {
     ],
     "show_sidebar": True,
     "navigation_expanded": True,
+    "hide_models": [
+        "adminpanel.lotteryresult",
+    ],
+    "custom_links": {
+        "auth": [  
+                {
+                "name": "Edit Results",
+                "url": "adminpanel/edit-lottery/",  
+                "icon": "fas fa-star",
+            },
+            {
+                "name": "Generate Results",
+                "url": "adminpanel/generate-results/",  
+                "icon": "fas fa-trophy",
+            },
+        ]
+    },
 }
 
 import os
